@@ -3,6 +3,8 @@
 ---
 
 [![spm version](http://spmjs.io/badge/evt)](http://spmjs.io/package/evt)
+[![Build Status](https://travis-ci.org/hotoo/evt.svg)](https://travis-ci.org/hotoo/evt)
+[![Coverage Status](https://coveralls.io/repos/hotoo/evt/badge.png)](https://coveralls.io/r/hotoo/evt)
 
 A mini event module.
 
