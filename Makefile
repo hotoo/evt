@@ -11,6 +11,8 @@ build:
 
 publish: publish-doc
 	@spm publish
+	@git tag $(version)
+	@git push origin $(version)
 
 publish-doc: clean
 	@spm doc publish
