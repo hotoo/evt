@@ -17,11 +17,16 @@ $ spm install evt --save
 ## Usage
 
 ```js
-var evt = require('evt');
-// use evt
+var Event = require('evt');
+
+var evt = new Event();
+evt.on("event-name", function(){
+  // Do somethings.
+});
 ```
 
 ## Api
 
-Here is more details.
+### event.on(String eventName, Function handler)
 
+### event.off(String eventName, [Function handler])

@@ -1,28 +1,27 @@
 {
   "name": "evt",
   "version": "0.1.0",
-  "description": "The Mini Event Module.",
-  "keywords": [],
-  "homepage": "",
-  "author": "",
+  "description": "The mini event module.",
+  "keywords": ["Event"],
+  "homepage": "https://github.com/hotoo/evt",
+  "author": "闲耘<hotoo.cn@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/hotoo/evt.git"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/hotoo/evt/issues"
   },
   "licenses": "MIT",
   "spm": {
-    "main": "index.js",
-    "dependencies": {
-    },
+    "main": "evt.js",
     "devDependencies": {
+      "jquery": "1.7.2",
       "expect.js": "0.3.1"
     },
     "engines": {
       "seajs": "2.2.1"
     },
-    "tests": "tests/*.js"
+    "tests": "tests/*-spec.js"
   }
 }
