@@ -1,5 +1,5 @@
 
-var Event = function(){
+function Event (){
 
   var listeners = {};
   var me = this;
@@ -34,8 +34,9 @@ var Event = function(){
     return me;
   };
 
-  me.emit = function(name, data) {
+  me.emit = function(name) {
     var list = listeners[name];
+    var args = Array.prototype.slice.call(arguments).shift();
 
     if (list) {
       // Copy callback lists to prevent modification
@@ -43,7 +44,7 @@ var Event = function(){
 
       // Execute event callbacks, use index because it's the faster.
       for(var i = 0, len = list.length; i < len; i++) {
-        list[i](data);
+        list[i].apply(me, args);
       }
     }
 
