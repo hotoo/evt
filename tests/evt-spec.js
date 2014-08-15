@@ -3,7 +3,18 @@ var Event = require('../evt');
 
 describe('evt', function() {
 
-  it('normal usage', function(done) {
+  it('normal usage: no arguments', function(done) {
+
+    var evt = new Event();
+    evt.on("name", function(data){
+      expect(data).to.equal(undefined);
+      done();
+    });
+    evt.emit("name");
+
+  });
+
+  it('normal usage: 1 arguments', function(done) {
 
     var evt = new Event();
     evt.on("name", function(data){
@@ -11,6 +22,19 @@ describe('evt', function() {
       done();
     });
     evt.emit("name", 1);
+
+  });
+
+  it('normal usage: more arguments', function(done) {
+
+    var evt = new Event();
+    evt.on("name", function(a, b, c){
+      expect(a).to.equal("a");
+      expect(b).to.equal("b");
+      expect(c).to.equal("c");
+      done();
+    });
+    evt.emit("name", "a", "b", "c");
 
   });
 
