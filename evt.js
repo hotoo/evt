@@ -1,20 +1,22 @@
 
-function Event (){
+function Event(){ };
 
-  var listeners = {};
-  var me = this;
+Event.prototype = {
 
-  me.on = function(eventName, handler){
+  on: function(eventName, handler){
+    var listeners = this._ || (this._ = {});
     var list = listeners[eventName] || (listeners[eventName] = []);
     list.push(handler);
-    return me;
-  };
+    return this;
+  },
 
-  me.off = function(eventName, handler) {
+  off: function(eventName, handler) {
+    var listeners = this._;
+
     // Remove *all* events
     if (!(eventName || handler)) {
-      listeners = {};
-      return me;
+      this._ = {};
+      return this;
     }
 
     var list = listeners[eventName];
@@ -32,11 +34,11 @@ function Event (){
       }
     }
 
-    return me;
-  };
+    return this;
+  },
 
-  me.emit = function(name) {
-    var list = listeners[name];
+  emit: function(name) {
+    var list = this._[name];
     var args = Array.prototype.slice.call(arguments); args.shift();
 
     if (list) {
@@ -45,12 +47,12 @@ function Event (){
 
       // Execute event callbacks, use index because it's the faster.
       for(var i = 0, len = list.length; i < len; i++) {
-        list[i].apply(me, args);
+        list[i].apply(this, args);
       }
     }
 
-    return me;
-  };
+    return this;
+  }
 
 };
 
