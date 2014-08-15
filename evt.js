@@ -37,7 +37,7 @@ function Event (){
 
   me.emit = function(name) {
     var list = listeners[name];
-    var args = Array.prototype.slice.call(arguments).shift();
+    var args = Array.prototype.slice.call(arguments); args.shift();
 
     if (list) {
       // Copy callback lists to prevent modification
