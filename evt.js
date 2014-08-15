@@ -4,54 +4,67 @@ function Event(){ };
 Event.prototype = {
 
   on: function(eventName, handler){
-    var listeners = this._ || (this._ = {});
+    var me = this;
+    var listeners = me._ || (me._ = {});
     var list = listeners[eventName] || (listeners[eventName] = []);
     list.push(handler);
-    return this;
+    return me;
   },
 
   off: function(eventName, handler) {
-    var listeners = this._;
+    var me = this;
+    var listeners = me._;
 
     // Remove *all* events
-    if (!(eventName || handler)) {
-      this._ = {};
-      return this;
-    }
+    if (listeners){
 
-    var list = listeners[eventName];
-    if (list) {
-      if (handler) {
-        for (var i = list.length - 1; i >= 0; i--) {
-          if (list[i] === handler) {
-            list.splice(i, 1);
-            break;
+      if (!(eventName || handler)) {
+        me._ = {};
+        return me;
+      }
+
+      var list = listeners[eventName];
+      if (list) {
+        if (handler) {
+          for (var i = list.length - 1; i >= 0; i--) {
+            if (list[i] === handler) {
+              list.splice(i, 1);
+              break;
+            }
           }
         }
+        else {
+          delete listeners[eventName];
+        }
       }
-      else {
-        delete listeners[eventName];
-      }
+
     }
 
-    return this;
+    return me;
   },
 
   emit: function(name) {
-    var list = this._[name];
-    var args = Array.prototype.slice.call(arguments); args.shift();
+    var me = this;
+    var listeners = me._;
 
-    if (list) {
-      // Copy callback lists to prevent modification
-      list = list.slice();
+    if (listeners) {
 
-      // Execute event callbacks, use index because it's the faster.
-      for(var i = 0, len = list.length; i < len; i++) {
-        list[i].apply(this, args);
+      var list = listeners[name];
+      var args = Array.prototype.slice.call(arguments); args.shift();
+
+      if (list) {
+        // Copy callback lists to prevent modification
+        list = list.slice();
+
+        // Execute event callbacks, use index because it's the faster.
+        for(var i = 0, len = list.length; i < len; i++) {
+          list[i].apply(me, args);
+        }
       }
+
     }
 
-    return this;
+    return me;
   }
 
 };
