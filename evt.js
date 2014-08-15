@@ -1,4 +1,6 @@
 
+var slice = [].slice;
+
 function Event(){ };
 
 Event.prototype = {
@@ -50,7 +52,7 @@ Event.prototype = {
     if (listeners) {
 
       var list = listeners[name];
-      var args = Array.prototype.slice.call(arguments); args.shift();
+      var args = slice.call(arguments); args.shift();
 
       if (list) {
         // Copy callback lists to prevent modification
