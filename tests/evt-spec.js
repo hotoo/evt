@@ -90,4 +90,19 @@ describe('evt', function() {
     done();
   });
 
+  it("no listeners, off(), emit()", function(done){
+    var evt = new Event();
+    var inCatch = false;
+
+    try {
+      evt.off("name");
+      evt.emit("name");
+    } catch (ex) {
+      inCatch = true;
+    }
+
+    expect(inCatch).to.equal(false);
+    done();
+  });
+
 });
