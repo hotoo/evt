@@ -3,7 +3,7 @@ var slice = [].slice;
 
 function Event(context){
   this._ = {};
-  this.$ = context;
+  this.$ = context || this;
 };
 
 Event.prototype = {
@@ -56,7 +56,7 @@ Event.prototype = {
 
       // Execute event callbacks, use index because it's the faster.
       for(var i = 0, len = list.length; i < len; i++) {
-        list[i].apply(me.$ || me, args);
+        list[i].apply(me.$, args);
       }
     }
 
