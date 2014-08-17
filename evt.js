@@ -1,31 +1,29 @@
 
 var slice = [].slice;
 
-function Event(){ };
+function Event(context){
+  this._ = {};
+  this.$ = context || this;
+};
 
 Event.prototype = {
 
   on: function(eventName, handler){
     var me = this;
-    var listeners = me._ || (me._ = {});
-    var list = listeners[eventName] || (listeners[eventName] = []);
+    var list = me._[eventName] || (me._[eventName] = []);
     list.push(handler);
     return me;
   },
 
   off: function(eventName, handler) {
     var me = this;
-    var listeners = me._;
 
     // Remove *all* events
-    if (listeners){
+    if (!(eventName || handler)) {
+      me._ = {};
+    } else {
 
-      if (!(eventName || handler)) {
-        me._ = {};
-        return me;
-      }
-
-      var list = listeners[eventName];
+      var list = me._[eventName];
       if (list) {
         if (handler) {
           for (var i = list.length - 1; i >= 0; i--) {
@@ -36,7 +34,7 @@ Event.prototype = {
           }
         }
         else {
-          delete listeners[eventName];
+          delete me._[eventName];
         }
       }
 
@@ -47,23 +45,19 @@ Event.prototype = {
 
   emit: function(name) {
     var me = this;
-    var listeners = me._;
 
-    if (listeners) {
+    var list = me._[name];
+    var args = slice.call(arguments); args.shift();
 
-      var list = listeners[name];
-      var args = slice.call(arguments); args.shift();
+    if (list) {
+      // Copy callback lists to prevent modification
+      // https://github.com/seajs/seajs/issues/1058
+      list = list.slice();
 
-      if (list) {
-        // Copy callback lists to prevent modification
-        list = list.slice();
-
-        // Execute event callbacks, use index because it's the faster.
-        for(var i = 0, len = list.length; i < len; i++) {
-          list[i].apply(me, args);
-        }
+      // Execute event callbacks, use index because it's the faster.
+      for(var i = 0, len = list.length; i < len; i++) {
+        list[i].apply(me.$, args);
       }
-
     }
 
     return me;
