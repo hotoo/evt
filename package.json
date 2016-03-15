@@ -1,5 +1,5 @@
 {
-  "name": "evt",
+  "name": "min-evt",
   "version": "0.2.2",
   "description": "A mini event module.",
   "keywords": ["Event"],
@@ -13,15 +13,10 @@
     "url": "https://github.com/hotoo/evt/issues"
   },
   "licenses": "MIT",
-  "spm": {
-    "main": "evt.js",
-    "devDependencies": {
-      "jquery": "1.7.2",
-      "expect.js": "0.3.1"
-    },
-    "engines": {
-      "seajs": "2.2.1"
-    },
-    "tests": "tests/*-spec.js"
-  }
+  "main": "evt.js",
+  "devDependencies": {
+    "jquery": "1.7.2",
+    "expect.js": "0.3.1"
+  },
+  "tests": "tests/*-spec.js"
 }

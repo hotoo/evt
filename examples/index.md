@@ -11,7 +11,8 @@
 <button id="btn-off">OFF</button>
 
 ````javascript
-seajs.use(["jquery", "evt"], function($, Event) {
+var $ = require('jquery');
+var Event = require('min-evt');
 
   var evt = new Event();
 
@@ -43,5 +44,4 @@ seajs.use(["jquery", "evt"], function($, Event) {
 
   on();
 
-});
 ````
